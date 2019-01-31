@@ -7,7 +7,7 @@ function debug(player, fmt, ...)
   global.debugId = 1 + (global.debugId or 0)
   player.print(string.format("%d:"..fmt, global.debugId, ...))
 end
---debug = function() end
+debug = function() end
 
 function onInit()
   global = global or {gui={}}

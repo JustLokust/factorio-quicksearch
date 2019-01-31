@@ -21,17 +21,20 @@ The keybindings are configurable, but the default settings are:
 pick up the stack of "chemical plant 1".
 - Q to close the search box without selecting anything.
 
-# Search corpora
+# Match types
 
-Quicksearch looks for results from your inventory, crafting recipes, logistics
-networks, and open chests. Clicking on a result does something slightly
-different, depending on where the item was found.
+Quicksearch looks for results from your inventory, crafting recipes, logistics networks, and open chests. Clicking on a result does something slightly different, depending on where the item was found.
 
-- Inventory / chest. Click on these to pick up a stack. Common Factorio
-  modifiers apply for transferring items (e.g. ctrl+click to transfer all items
-of that type between chest and inventory).
-- Crafting. Click on these to create a ghost blueprint of the item.
-  Alternatively, hold ctrl or shift to craft a different amount of the item.
-- Logistics Networks. Click on these to create a ghost blueprint of the item.
-  Alternativel, hold ctrl or shift to request a certain amount from the
-logistics network. The request will be cleared once bots fulfill it.
+- Inventory / chest. Click on these to pick up a stack. Common Factorio modifiers apply for transferring items (e.g. ctrl+click to transfer all items of that type between chest and inventory).
+- Crafting. Click on these to create a ghost blueprint of the item. Alternatively, hold ctrl or shift to craft a different amount of the item.
+- Logistics Networks. Click on these to create a ghost blueprint of the item. Alternatively, hold ctrl or shift to request a certain amount from the logistics network. The request will be cleared once bots fulfill it.
+
+# Search string
+
+Your search will match any item that contains any of the letters you typed, in that order, regardless of letters in between. This allows you to search for a substring of a term, like "yser" for "electrolyser". Other examples:
+
+- "stta4" - "STorage-TAnk-4"
+- "xtb" - "eXpress-Transport-Belt"
+- "dee" - "meDium-ElEctric-Pole"
+
+Also, for technical reasons, Quicksearch searches on the item's in-game type name, not the translated name.
