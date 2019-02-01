@@ -7,7 +7,7 @@ data:extend({
   },
   {
     type = "font",
-    name = "quicksearch-button",
+    name = "font-quicksearch-button",
     from = "default-bold",
     size = 14
   }
@@ -36,7 +36,7 @@ data.raw["gui-style"].default["quicksearch-button-style"] =
 {
 	type = "button_style",
 	parent = "button",
-	font = "quicksearch-button",
+	font = "font-quicksearch-button",
 	align = "center",
   top_padding = 2,
   right_padding = 2,
@@ -112,7 +112,7 @@ data.raw["gui-style"].default["quicksearch-match-item-style"] =
 {
   type = "button_style",
   parent = "slot_button",
-  font = "font-mb",
+  font = "default-semibold",
   height = 36,
   width = 36,
   scalable = false,
@@ -122,7 +122,7 @@ data.raw["gui-style"].default["quicksearch-match-item-favorite-style"] =
 {
   type = "button_style",
   parent = "slot_button",
-  font = "font-mb",
+  font = "default-semibold",
   height = 36,
   width = 36,
   scalable = false,
