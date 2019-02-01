@@ -62,37 +62,50 @@ function Inventory.findMatches(player, inventories, matchFunc)
   for invIndex, inv in pairs(inventories) do
     for i = 1,#inv do
       local item = inv[i]
-      if item.valid and item.valid_for_read and matchFunc(player, item.name) then
-        matches[item.name] = {
-          inventory = inv,
-          name = item.name,
-          number = (matches[item.name] or empty).number + item.count,
-          order = (isFavorite(player, item.name) and "[a]" or "[b]") .. item.prototype.order,
-          sprite = "item/"..item.name,
-          tooltip = {
-            "",
-            item.prototype.localised_name,
-            " (", item.name, ")",
-            "\nclick = pick up item",
-            "\nshift+click = transfer single stack to other inventory",
-            "\nctrl+click = transfer all stacks to other inventory",
-          },
-          acceptFunc = "item",
-        }
+      if item.valid_for_read then
+        local matchName = item.is_item_with_label and item.label or item.name
+        if matchFunc(player, matchName) then
+          matches[matchName] = {
+            inventory = inv,
+            name = matchName,
+            isLabel = item.is_item_with_label and item.label,
+            number = (matches[matchName] or empty).number + item.count,
+            order = (isFavorite(player, matchName) and "[a]" or "[b]") .. item.prototype.order,
+            sprite = "item/"..item.name,
+            tooltip = {
+              "",
+              item.prototype.localised_name,
+              " (", matchName, ")",
+              "\nclick = pick up item",
+              "\nshift+click = transfer single stack to other inventory",
+              "\nctrl+click = transfer all stacks to other inventory",
+            },
+            acceptFunc = "item",
+          }
+        end
       end
     end
   end
   return matches
 end
 
+-- Helper to find the item corresponding to the given match.
+function Inventory.findItem(player, match)
+  if not match.isLabel then return match.inventory.find_item_stack(match.name) end
+  for i = 1,#match.inventory do
+    local item = match.inventory[i]
+    if match.name == item.label then return item end
+  end
+end
+
 -- Player chose an item from the inventory list.
 function Inventory.pick(player, match, event)
-  local item = match.inventory.find_item_stack(match.name)
+  local item = Inventory.findItem(player, match)
   local containerInventory = Inventory.getForOpenContainer(player)
   local transfer = event.control and "all" or event.shift and "single" or nil
   local half = event.button == defines.mouse_button_type.right
 
-  if not (item.valid and item.valid_for_read) then return end
+  if not (item and item.valid and item.valid_for_read) then return end
   if containerInventory and transfer then
     local otherInventory = match.inventory == containerInventory and player.get_main_inventory() or containerInventory
     local amount = transfer == "all" and match.number or math.min(match.number, item.prototype.stack_size)
