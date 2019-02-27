@@ -58,7 +58,7 @@ function Logistic.pick(player, match, event)
 
   -- Add logitistic requests.
   if player.character then
-    local playerCount = player.get_main_inventory().get_item_count(match.name) + player.get_quickbar().get_item_count(match.name)
+    local playerCount = player.get_main_inventory().get_item_count(match.name)
     local currentCount = 0
     local slot
     for i=1,player.character.request_slot_count do
@@ -86,7 +86,7 @@ function Logistic.maybeClearLogisticRequests(player)
   if player.character then
     local remove = {}
     for name, req in pairs(Global.get(player).awaitingLogisticRequest or {}) do
-      local playerCount = player.get_main_inventory().get_item_count(name) + player.get_quickbar().get_item_count(name)
+      local playerCount = player.get_main_inventory().get_item_count(name)
       if playerCount >= req.count then table.insert(remove, name) end
     end
     for _,name in pairs(remove) do

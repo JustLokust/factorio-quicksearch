@@ -83,7 +83,7 @@ function Gui.refresh(player)
   Gui.global(player).matches = {}
 
   -- Add matching items from player's inventory.
-  local matches = Inventory.findMatches(player, {player.get_main_inventory(), player.get_quickbar()}, Gui.matchQuery)
+  local matches = Inventory.findMatches(player, {player.get_main_inventory()}, Gui.matchQuery)
   local leftFlow = matchesFrame.left or matchesFrame.add{
     type = "flow",
     name = "left",

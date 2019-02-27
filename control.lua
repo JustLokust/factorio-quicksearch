@@ -64,4 +64,3 @@ function onInventoryChanged(event)
   Gui.refresh(player)
 end
 script.on_event(defines.events.on_player_main_inventory_changed, onInventoryChanged)
-script.on_event(defines.events.on_player_quickbar_inventory_changed, onInventoryChanged)

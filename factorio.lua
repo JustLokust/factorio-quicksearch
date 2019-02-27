@@ -49,7 +49,7 @@ end
 
 -- Destroys all instances of the above-mentioned ghost tool blueprint from the player's inventories.
 function Fact.destroyGhostTool(player)
-  local inventories = {player.get_main_inventory(), player.get_quickbar()}
+  local inventories = {player.get_main_inventory()}
   for invIndex = 1,#inventories do
     local inv = inventories[invIndex]
     for i = 1,#inv do
