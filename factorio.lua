@@ -47,16 +47,13 @@ function Fact.createGhostTool(player, entityProto)
   return bp
 end
 
--- Destroys all instances of the above-mentioned ghost tool blueprint from the player's inventories.
+-- Destroys all instances of the above-mentioned ghost tool blueprint from the player's inventory.
 function Fact.destroyGhostTool(player)
-  local inventories = {player.get_main_inventory()}
-  for invIndex = 1,#inventories do
-    local inv = inventories[invIndex]
-    for i = 1,#inv do
-      if inv[i].valid_for_read and inv[i].type == "blueprint" and inv[i].label == "Quicksearch Ghost" then
-        debug(player, "Zapping ghost")
-        inv[i].clear()
-      end
+  local inv = player.get_main_inventory()
+  for i = 1,#inv do
+    if inv[i].valid_for_read and inv[i].type == "blueprint" and inv[i].label == "Quicksearch Ghost" then
+      debug(player, "Zapping ghost")
+      inv[i].clear()
     end
   end
 end

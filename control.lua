@@ -57,10 +57,9 @@ script.on_event(defines.events.on_gui_opened, function(event)
   Gui.refresh(player)
 end)
 
-function onInventoryChanged(event)
+script.on_event(defines.events.on_player_main_inventory_changed, function (event)
   local player = game.players[event.player_index]
   Fact.destroyGhostTool(player)
   Logistic.maybeClearLogisticRequests(player)
   Gui.refresh(player)
-end
-script.on_event(defines.events.on_player_main_inventory_changed, onInventoryChanged)
+end)

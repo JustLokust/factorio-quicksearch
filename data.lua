@@ -118,6 +118,16 @@ data.raw["gui-style"].default["quicksearch-match-item-style"] =
   scalable = false,
 }
 
+function monolithIcon(filename, size)
+  return {
+    filename = filename,
+    priority = "extra-high-no-scale",
+    align = "center",
+    size = size,
+    scale = 1,
+  }
+end
+
 data.raw["gui-style"].default["quicksearch-match-item-favorite-style"] =
 {
   type = "button_style",
@@ -127,28 +137,7 @@ data.raw["gui-style"].default["quicksearch-match-item-favorite-style"] =
   width = 36,
   scalable = false,
 
-  -- default_graphical_set = {
-  --   type = "monolith",
-  --   monolith_image = {
-  --     filename = "__Quicksearch__/assets/favorite.png",
-  --     height = 36,
-  --     width = 36,
-  --   },
-  -- },
-  -- hovered_graphical_set = {
-  --   type = "monolith",
-  --   monolith_image = {
-  --     filename = "__Quicksearch__/assets/favorite-hovered.png",
-  --     height = 36,
-  --     width = 36,
-  --   },
-  -- },
-  -- clicked_graphical_set = {
-  --   type = "monolith",
-  --   monolith_image = {
-  --     filename = "__Quicksearch__/assets/favorite-clicked.png",
-  --     height = 36,
-  --     width = 36,
-  --   },
-  -- },
+  default_graphical_set = monolithIcon("__Quicksearch__/assets/favorite.png", 36),
+  hovered_graphical_set = monolithIcon("__Quicksearch__/assets/favorite-hovered.png", 36),
+  clicked_graphical_set = monolithIcon("__Quicksearch__/assets/favorite-clicked.png", 36),
 }
