@@ -3,6 +3,7 @@ local Fact = require("factorio")
 local Recipe = {}
 
 function isPlaceable(recipe)
+  if #recipe.products == 0 then return false end
   local ip = game.item_prototypes[recipe.products[1].name]
   if ip and ip.place_result then
     return true

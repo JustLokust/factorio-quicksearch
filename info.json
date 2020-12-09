@@ -1,8 +1,8 @@
 {
 	"name": "Quicksearch",
-	"version": "1.0.2",
+	"version": "1.1.0",
 	"title": "Quicksearch",
 	"author": "mpcomplete",
 	"description": "Quickly search for items by name from your inventory/chests/craftables/logistic supply.",
-	"factorio_version": "0.18"
+	"factorio_version": "1.1"
 }
