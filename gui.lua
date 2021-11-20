@@ -178,7 +178,12 @@ local acceptFuncs = {
       debug(player, "Favorite match=%s: %s", match.name, isFavorite(player, match.name) and "yes" or "no")
     else
       debug(player, "Accepting match=%s", match.name)
-      acceptFuncs[match.acceptFunc](player, match, event)
+      local ok = pcall(function()
+        acceptFuncs[match.acceptFunc](player, match, event)
+      end)
+      if not ok then
+        player.print("Unknown error occurred when processing quicksearch input.")
+      end
     end
   end
 end

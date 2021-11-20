@@ -60,7 +60,11 @@ function Recipe.pick(player, match, event)
       craft = math.ceil(itemProto.stack_size / amount)
     end
   end
-  player.begin_crafting{count=craft, recipe=match.recipe}
+  if (player.controller_type == defines.controllers.god or player.controller_type == defines.controllers.editor) then
+    player.insert{count=craft, name=match.recipe.products[1].name}
+  else
+    player.begin_crafting{count=craft, recipe=match.recipe}
+  end
 end
 
 return Recipe
