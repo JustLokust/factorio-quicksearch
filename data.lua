@@ -25,11 +25,10 @@ data.raw["gui-style"].default["quicksearch-window-style"] =
 {
 	type = "frame_style",
   parent = 'frame',
-  top_padding = 0,
-  right_padding = 0,
-  bottom_padding = 0,
-  left_padding = 0,
+  padding = 0,
   scalable = false,
+  maximal_height = 600,
+  -- vertically_squashable = true,
 }
 
 data.raw["gui-style"].default["quicksearch-button-style"] =
@@ -38,10 +37,19 @@ data.raw["gui-style"].default["quicksearch-button-style"] =
 	parent = "button",
 	font = "font-quicksearch-button",
 	align = "center",
-  top_padding = 2,
-  right_padding = 2,
-  bottom_padding = 2,
-  left_padding = 2,
+  padding = 2,
+	default_font_color = {r = 1, g = 0.707, b = 0.12},
+	hovered_font_color = {r = 1, g = 1, b = 1},
+	clicked_font_color = {r = 1, g = 0.707, b = 0.12}
+}
+
+data.raw["gui-style"].default["quicksearch-checkbox-style"] =
+{
+	type = "checkbox_style",
+	parent = "checkbox",
+	font = "font-quicksearch-button",
+	align = "center",
+  padding = 2,
 	default_font_color = {r = 1, g = 0.707, b = 0.12},
 	hovered_font_color = {r = 1, g = 1, b = 1},
 	clicked_font_color = {r = 1, g = 0.707, b = 0.12}
@@ -50,10 +58,7 @@ data.raw["gui-style"].default["quicksearch-button-style"] =
 data.raw["gui-style"].default["quicksearch-match-horizontal-flow-style"] =
 {
   type = "horizontal_flow_style",
-  top_padding = 0,
-  right_padding = 0,
-  bottom_padding = 0,
-  left_padding = 0,
+  padding = 0,
   horizontal_spacing = 0,
   vertical_spacing = 0,
   resize_row_to_width = true,

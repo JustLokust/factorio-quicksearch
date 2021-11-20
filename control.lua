@@ -35,6 +35,13 @@ script.on_event(defines.events.on_gui_click, function(event)
   end
 end)
 
+script.on_event(defines.events.on_gui_checked_state_changed, function(event)
+  local player = game.players[event.player_index]
+  if event.element.name == "quicksearch.toggle-hidden" then
+    Gui.toggleHidden(player)
+  end
+end)
+
 script.on_event(defines.events.on_gui_text_changed, function(event)
   local player = game.players[event.player_index]
   if event.element.name == "quicksearch.query" then

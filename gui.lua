@@ -18,6 +18,7 @@ function Gui.open(player)
       name = "quicksearch",
       direction = "vertical",
       style = "quicksearch-window-style",
+      vertical_scroll_policy = "never",
     }
     -- Row 1: input area
     do
@@ -36,7 +37,15 @@ function Gui.open(player)
         style = "quicksearch-button-style"
       }
     end
-    -- Row 2: matches
+    -- Row 2: checkbox
+    window.add{
+      type = "checkbox",
+      name = "quicksearch.toggle-hidden",
+      caption = "Show hidden/unresearched recipes",
+      style = "quicksearch-checkbox-style",
+      state = Global.get(player).showHidden or false
+    }
+    -- Row 3: matches
     window.add{
       type = "flow",
       name = "matches",
@@ -75,6 +84,11 @@ function Gui.matchQuery(player, text)
   return string.match(text, Gui.global(player).query or "")
 end
 
+function Gui.toggleHidden(player)
+  Global.get(player).showHidden = not Global.get(player).showHidden
+  Gui.refresh(player)
+end
+
 function Gui.refresh(player)
   if not player.gui.left.quicksearch then return end
   debug(player, "Refreshing GUI.")
@@ -94,7 +108,7 @@ function Gui.refresh(player)
   Gui.buildMatchGrid(player, leftFlow, "Inventory", "inventory", matches)
   
   -- Add matching recipes.
-  local matches = Recipe.findMatches(player, Gui.matchQuery)
+  local matches = Recipe.findMatches(player, Gui.matchQuery, Global.get(player).showHidden)
   Gui.buildMatchGrid(player, leftFlow, "Crafting", "crafting", matches)
 
   local rightFlow = matchesFrame.right or matchesFrame.add{
