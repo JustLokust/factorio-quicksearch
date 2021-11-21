@@ -2,20 +2,16 @@ local Fact = require("factorio")
 
 local Recipe = {}
 
-function isPlaceable(recipe)
-  if recipe.prototype.main_product == nil then return false end
-  local ip = game.item_prototypes[recipe.prototype.main_product.name]
-  if ip and ip.place_result then
-    return true
-  end
-end
-
 -- Helper to collect a list of recipes that match the query.
 function Recipe.findMatches(player, matchFunc, showHidden)
   local matches = {}
+  local itemsAdded = {}
   for name, recipe in pairs(player.force.recipes) do
-    local placeable = isPlaceable(recipe)
-    if ((not recipe.hidden and recipe.enabled) or showHidden) and (placeable or recipe.category == "crafting") and matchFunc(player, name) then
+    local itemProto = recipe.prototype.main_product and game.item_prototypes[recipe.prototype.main_product.name]
+    local visible = (not recipe.hidden and recipe.enabled) or showHidden
+    local canPlaceOrCraft = itemProto and (itemProto.place_result or recipe.category == "crafting")
+    if itemProto and not itemsAdded[itemProto.name] and visible and canPlaceOrCraft and matchFunc(player, name) then
+      itemsAdded[itemProto.name] = true
       matches[name] = {
         recipe = recipe,
         name = name,
@@ -24,7 +20,7 @@ function Recipe.findMatches(player, matchFunc, showHidden)
         sprite = "recipe/"..name,
         tooltip = {
           "",
-          recipe.prototype.localised_name,
+          itemProto.localised_name,
           " (", name, ")",
           "\nclick = pick up ghost of item",
           "\nctrl+click = craft single item",
@@ -40,6 +36,7 @@ end
 
 -- Player chose a recipe.
 function Recipe.pick(player, match, event)
+  local itemProto = game.item_prototypes[match.recipe.prototype.main_product.name]
   local craft =
     (event.shift) and 100 or -- "100" means "a full stack"
     (event.control and event.button == defines.mouse_button_type.right) and 5 or
@@ -47,23 +44,19 @@ function Recipe.pick(player, match, event)
     0
   if craft == 0 then
     -- Grab ghost of the item.
-    local itemProto = game.item_prototypes[match.recipe.prototype.main_product.name]
-    if itemProto and itemProto.place_result then
+    if itemProto.place_result then
       Fact.createGhostTool(player, itemProto.place_result)
     end
     return
   end
   -- Craft the item.
-  if craft == 100 then
-    local itemProto = game.item_prototypes[match.recipe.prototype.main_product.name]
-    if itemProto then -- can be nil for fluids
+  if (player.controller_type == defines.controllers.god or player.controller_type == defines.controllers.editor) then
+    player.insert{count=craft == 100 and itemProto.stack_size or craft, name=itemProto.name}
+  else
+    if craft == 100 then
       local amount = match.recipe.prototype.main_product.amount or match.recipe.prototype.main_product.amount_min or 1
       craft = math.ceil(itemProto.stack_size / amount)
     end
-  end
-  if (player.controller_type == defines.controllers.god or player.controller_type == defines.controllers.editor) then
-    player.insert{count=craft, name=match.recipe.prototype.main_product.name}
-  else
     player.begin_crafting{count=craft, recipe=match.recipe}
   end
 end
