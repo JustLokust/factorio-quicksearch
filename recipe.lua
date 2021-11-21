@@ -8,7 +8,7 @@ function Recipe.findMatches(player, matchFunc, showHidden)
   for name, recipe in pairs(player.force.recipes) do
     local itemProto = recipe.prototype.main_product and game.item_prototypes[recipe.prototype.main_product.name]
     local visible = (not recipe.hidden and recipe.enabled) or showHidden
-    local canPlaceOrCraft = itemProto and (itemProto.place_result or recipe.category == "crafting")
+    local canPlaceOrCraft = itemProto and itemProto.stackable
     if itemProto and not matches[itemProto.name] and visible and canPlaceOrCraft then
       local matchDist = matchFunc(player, itemProto.name)
       if matchDist then
