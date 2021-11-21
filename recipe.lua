@@ -5,26 +5,23 @@ local Recipe = {}
 -- Helper to collect a list of recipes that match the query.
 function Recipe.findMatches(player, matchFunc, showHidden)
   local matches = {}
-  local itemsAdded = {}
   for name, recipe in pairs(player.force.recipes) do
     local itemProto = recipe.prototype.main_product and game.item_prototypes[recipe.prototype.main_product.name]
     local visible = (not recipe.hidden and recipe.enabled) or showHidden
     local canPlaceOrCraft = itemProto and (itemProto.place_result or recipe.category == "crafting")
-    if itemProto and not itemsAdded[itemProto.name] and visible and canPlaceOrCraft then
-      local matchDist = matchFunc(player, name)
+    if itemProto and not matches[itemProto.name] and visible and canPlaceOrCraft then
+      local matchDist = matchFunc(player, itemProto.name)
       if matchDist then
-        itemsAdded[itemProto.name] = true
-        matches[name] = {
+        matches[itemProto.name] = {
           recipe = recipe,
-          name = name,
+          name = itemProto.name,
   --        number = player.get_craftable_count(recipe), -- too slow
           order = (isFavorite(player, name) and "[a]" or "[b]") .. (placeable and "[a]" or "[b]") .. string.format("%04d", matchDist) .. itemProto.order,
           sprite = "recipe/"..name,
           tooltip = {
             "",
             itemProto.localised_name,
-            " (", name, ")",
-            "\norder: " .. string.format("%04d", matchDist),
+            " (", itemProto.name, ")",
             "\nclick = pick up ghost of item",
             "\nctrl+click = craft single item",
             "\nshift+click = craft stack of item",
