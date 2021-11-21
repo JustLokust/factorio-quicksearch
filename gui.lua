@@ -77,11 +77,17 @@ end
 
 function Gui.setQuery(player, query)
   -- Insert ".*" in between each letter for a fuzzy match. That way "etb" will match "express-transport-belt"
-  Gui.global(player).query = string.gsub(query, "(.)", "%1.*")
+  Gui.global(player).queryLen = #query
+  Gui.global(player).query = string.sub(string.gsub(query, "(.)", "%1.*"), 1, -3) -- remove last .*
 end
 
 function Gui.matchQuery(player, text)
-  return string.match(text, Gui.global(player).query or "")
+  local match = string.match(text, Gui.global(player).query or "")
+  if match then
+    local lendiff = #match - (Gui.global(player).queryLen or 0) -- better matches have a shorter length difference
+    return lendiff
+  end
+  return false
 end
 
 function Gui.toggleHidden(player)

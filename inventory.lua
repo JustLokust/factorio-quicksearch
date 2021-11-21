@@ -64,13 +64,14 @@ function Inventory.findMatches(player, inventories, matchFunc)
       local item = inv[i]
       if item.valid_for_read then
         local matchName = item.is_item_with_label and item.label or item.name
-        if matchFunc(player, matchName) then
+        local matchDist = matchFunc(player, matchName)
+        if matchDist then
           matches[matchName] = {
             inventory = inv,
             name = matchName,
             isLabel = item.is_item_with_label and item.label,
             number = (matches[matchName] or empty).number + item.count,
-            order = (isFavorite(player, matchName) and "[a]" or "[b]") .. item.prototype.order,
+            order = (isFavorite(player, matchName) and "[a]" or "[b]") .. string.format("%04d", matchDist) .. item.prototype.order,
             sprite = "item/"..item.name,
             tooltip = {
               "",

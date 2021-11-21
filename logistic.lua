@@ -14,12 +14,13 @@ function Logistic.findMatches(player, matchFunc)
       else
         local contents = network.get_contents()
         for name, count in pairs(contents) do
-          if matchFunc(player, name) then
+          local matchDist = matchFunc(player, name)
+          if matchDist then
             local itemProto = game.item_prototypes[name]
             matches[name] = {
               name = name,
               number = count,
-              order = (isFavorite(player, name) and "[a]" or "[b]") .. itemProto.order,
+              order = (isFavorite(player, name) and "[a]" or "[b]") .. string.format("%04d", matchDist) .. itemProto.order,
               sprite = "item/"..name,
               tooltip = {
                 "",
