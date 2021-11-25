@@ -192,7 +192,11 @@ local acceptFuncs = {
  function Gui.acceptMatch(player, index, event)
   local match = Gui.global(player).matches[index]
   if match then
-    if event.alt then
+    if event.control and event.alt then
+      local action_type = (event.button == defines.mouse_button_type.left) and "craft" or "usage"
+      local name = match.recipe and match.recipe.prototype.name or match.name
+      remote.call("fnei", "show_recipe", name, nil)
+    elseif event.alt then
       Global.get(player).favorites = Global.get(player).favorites or {}
       Global.get(player).favorites[match.name] = not Global.get(player).favorites[match.name]
       debug(player, "Favorite match=%s: %s", match.name, isFavorite(player, match.name) and "yes" or "no")
