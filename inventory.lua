@@ -69,6 +69,7 @@ function Inventory.findMatches(player, inventories, matchFunc)
           matches[matchName] = {
             inventory = inv,
             name = matchName,
+            itemProto = item.prototype,
             isLabel = item.is_item_with_label and item.label,
             number = (matches[matchName] or empty).number + item.count,
             order = (isFavorite(player, matchName) and "[a]" or "[b]") .. string.format("%04d", matchDist) .. item.prototype.order,

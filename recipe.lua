@@ -14,6 +14,7 @@ function Recipe.findMatches(player, matchFunc, showHidden)
       if matchDist then
         matches[itemProto.name] = {
           recipe = recipe,
+          itemProto = itemProto,
           name = itemProto.name,
   --        number = player.get_craftable_count(recipe), -- too slow
           order = (isFavorite(player, name) and "[a]" or "[b]") .. (placeable and "[a]" or "[b]") .. string.format("%04d", matchDist) .. itemProto.order,

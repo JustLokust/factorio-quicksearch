@@ -19,6 +19,7 @@ function Logistic.findMatches(player, matchFunc)
             local itemProto = game.item_prototypes[name]
             matches[name] = {
               name = name,
+              itemProto = itemProto,
               number = count,
               order = (isFavorite(player, name) and "[a]" or "[b]") .. string.format("%04d", matchDist) .. itemProto.order,
               sprite = "item/"..name,

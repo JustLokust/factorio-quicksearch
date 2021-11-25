@@ -183,13 +183,12 @@ function Gui.buildMatchGrid(player, parent, caption, name, matches)
   end
 end
 
- function Gui.acceptMatch(player, index, event)
+function Gui.acceptMatch(player, index, event)
   local match = Gui.global(player).matches[index]
   if match then
     if event.control and event.alt then
       local action_type = (event.button == defines.mouse_button_type.left) and "craft" or "usage"
-      local name = match.recipe and match.recipe.prototype.name or match.name
-      remote.call("fnei", "show_recipe", name, nil)
+      remote.call("fnei", "show_recipe_for_prot", action_type, match.itemProto.type, match.itemProto.name)
     elseif event.alt then
       Global.get(player).favorites = Global.get(player).favorites or {}
       Global.get(player).favorites[match.name] = not Global.get(player).favorites[match.name]
