@@ -183,12 +183,6 @@ function Gui.buildMatchGrid(player, parent, caption, name, matches)
   end
 end
 
-local acceptFuncs = {
-  item = Inventory.pick,
-  recipe = Recipe.pick,
-  logistic = Logistic.pick,
-}
-
  function Gui.acceptMatch(player, index, event)
   local match = Gui.global(player).matches[index]
   if match then
@@ -203,7 +197,7 @@ local acceptFuncs = {
     else
       debug(player, "Accepting match=%s", match.name)
       local ok = pcall(function()
-        acceptFuncs[match.acceptFunc](player, match, event)
+        match.acceptFunc(player, match, event)
       end)
       if not ok then
         player.print("Unknown error occurred when processing quicksearch input.")

@@ -25,9 +25,9 @@ function Recipe.findMatches(player, matchFunc, showHidden)
             "\nclick = pick up ghost of item",
             "\nctrl+click = craft single item",
             "\nshift+click = craft stack of item",
-            "\alt+click = toggle favorite",
+            "\nalt+click = toggle favorite",
           },
-          acceptFunc = "recipe",
+          acceptFunc = Recipe.pick,
         }
       end
     end

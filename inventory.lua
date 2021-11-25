@@ -80,8 +80,9 @@ function Inventory.findMatches(player, inventories, matchFunc)
               "\nclick = pick up item",
               "\nshift+click = transfer single stack to other inventory",
               "\nctrl+click = transfer all stacks to other inventory",
+              "\nalt+click = toggle favorite",
             },
-            acceptFunc = "item",
+            acceptFunc = Inventory.pick,
           }
         end
       end

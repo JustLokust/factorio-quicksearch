@@ -29,8 +29,9 @@ function Logistic.findMatches(player, matchFunc)
                 "\nclick = pick up ghost of item",
                 "\nctrl+click = add 1 of this item to logistic requests",
                 "\nshift+click = add a full stack of this item to logistic requests",
+                "\nalt+click = toggle favorite",
               },
-              acceptFunc = "logistic",
+              acceptFunc = Logistic.pick,
             }
           end
         end
