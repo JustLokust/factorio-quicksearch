@@ -1,0 +1,14 @@
+---------------------------------------------------------------------------------------------------
+Version: 1.1.1
+Date: 2021 nov 30
+  Changes:
+    - Improved the search ranking to place more exact matches at the top
+    - Added an option to open a match in FNEI
+    - Added an option to show hidden/unresearched recipes
+    - Filter out duplicate items in the recipe search
+---------------------------------------------------------------------------------------------------
+Version: 1.1.0
+Date: 2020 nov 25
+  Fixes:
+    - Compatible with Factorio 1.1
+---------------------------------------------------------------------------------------------------
