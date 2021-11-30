@@ -27,6 +27,7 @@ function Recipe.findMatches(player, matchFunc, showHidden)
             "\nctrl+click = craft single item",
             "\nshift+click = craft stack of item",
             "\nalt+click = toggle favorite",
+            "\nctrl+alt+click = open in FNEI",
           },
           acceptFunc = Recipe.pick,
         }

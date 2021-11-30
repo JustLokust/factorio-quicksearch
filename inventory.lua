@@ -82,6 +82,7 @@ function Inventory.findMatches(player, inventories, matchFunc)
               "\nshift+click = transfer single stack to other inventory",
               "\nctrl+click = transfer all stacks to other inventory",
               "\nalt+click = toggle favorite",
+              "\nctrl+alt+click = open in FNEI",
             },
             acceptFunc = Inventory.pick,
           }
